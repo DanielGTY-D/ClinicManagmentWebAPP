@@ -1,0 +1,41 @@
+import { Outlet } from "react-router";
+import SideBar from "~/components/sideBar/SideBar";
+import styles from "./MainLayout.module.css";
+
+export default function MainLayout() {
+  return (
+    <div className={styles.container}>
+      <SideBar />
+
+      <div className={styles.content}>
+        <header className={styles.header}>
+          <button
+            className={styles["toggle-sidebar"]}
+            aria-label="toggle-sidebar"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="lucide lucide-panel-left"
+              aria-hidden="true"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <path d="M9 3v18"></path>
+            </svg>
+          </button>
+        </header>
+
+        <div className={styles["outlet-container"]}>
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+}
