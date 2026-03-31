@@ -1,5 +1,3 @@
-import type { StateCreator } from "zustand";
-
 export interface CustomNotificationProps {
   message?: string;
   type?: "success" | "error" | "info" | "warning";
@@ -11,9 +9,3 @@ export interface CustomNotification {
   showNotification: (notification: CustomNotificationProps) => void;
   hideNotification: () => void;
 }
-
-export const NotificationSlice: StateCreator<CustomNotification> = (set) => ({
-  notification: null,
-  showNotification: (notification: CustomNotificationProps) => set({ notification }),
-  hideNotification: () => set({ notification: null }),
-});

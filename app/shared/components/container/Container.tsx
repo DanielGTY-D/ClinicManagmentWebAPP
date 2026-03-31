@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import styles from "./Container.module.css";
 
-interface ContainerPorps {
+interface ContainerProps {
     children: ReactNode
 }
 
-export default function Container({children}:ContainerPorps) {
+export default function Container({children}:ContainerProps) {
     return (
         <div className={styles.container}>
             {children}

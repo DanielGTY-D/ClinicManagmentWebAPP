@@ -1,10 +1,11 @@
 import type { StateCreator } from "zustand";
-import type { ModalProps } from "../../types/global/modal";
 
 export interface ModalCreateState {
-  
+  isModalOpen: boolean;
+  setActivateModal: (isOpen: boolean) => void;
 }
 
 export const ModalCreateSllice: StateCreator<ModalCreateState> = (set) => ({
-  
+  isModalOpen: false,
+  setActivateModal: (isOpen: boolean) => set({ isModalOpen: isOpen }),
 });
