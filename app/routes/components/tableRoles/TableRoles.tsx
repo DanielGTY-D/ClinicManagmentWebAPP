@@ -5,9 +5,10 @@ import { useAppStore } from "~/shared/stores/useAppStore";
 
 type TableRolesProps = {
   roles?: rolesType;
+  onEdit?: (role: any) => void;
 };
 
-export default function TableRoles({ roles }: TableRolesProps) {
+export default function TableRoles({ roles, onEdit }: TableRolesProps) {
   const setActiveModal = useAppStore((state) => state.setActivateModal);
 
 
@@ -56,13 +57,13 @@ export default function TableRoles({ roles }: TableRolesProps) {
               <td className={styles["table-data"]} data-status={role.isActive}>
                 <span>{role.isActive ? "Activo" : "No Activo"}</span>
               </td>
-              <td className={styles["table-actions"]}>
-                <button
-                  className={styles["table-action-edit"]}
-                  onClick={(e) => {
-                    setActiveModal(true);
-                  }}
-                >
+               <td className={styles["table-actions"]}>
+                 <button
+                   className={styles["table-action-edit"]}
+                   onClick={(e) => {
+                     onEdit?.(role);
+                   }}
+                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

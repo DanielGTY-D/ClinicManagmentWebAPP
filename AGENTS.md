@@ -7,9 +7,20 @@ pnpm run dev        # Start development server with HMR (http://localhost:5173)
 pnpm run build      # Create production build
 pnpm run start      # Run production server
 pnpm run typecheck  # Run TypeScript type checking
+# Test command not configured - no test framework currently set up
 ```
 
 **Note:** No test framework is currently configured. The project uses React Router v7 with SSR enabled.
+
+## React Router v7 Specifics
+
+- Uses React Router v7 with Server-Side Rendering (SSR) enabled by default
+- Route configuration in `app/routes.ts` using the new routing API
+- Route modules export `meta`, `links`, `headers` functions for route-specific data
+- Uses `Outlet` for nested routing in layouts
+- Error boundaries handled via `ErrorBoundary` component in `root.tsx`
+- Data loading with TanStack Query integrated with route loaders
+- Forms and mutations handled via React Router's `useActionData` and `useNavigator`
 
 ## Code Style Guidelines
 
