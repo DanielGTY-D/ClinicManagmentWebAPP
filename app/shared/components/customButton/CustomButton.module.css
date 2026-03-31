@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+}
+
+.icon {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+}
+
+.blue {
+    background-color: var(--blue);
+    color: var(--accent);
+    svg {
+        color: var(--accent);
+    }
+}
+
+.white {
+    border: 1px solid var(--border);
+    color: var(--primary);
+
+    svg {
+        color: var(--primary);
+    }
+}
+
+.text {
+    font-size: 1.2rem;
+}

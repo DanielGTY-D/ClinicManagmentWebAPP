@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col {
+}
+
+.header {
+  font-size: 2rem;
+}
+
+.subHeader {
+    font-size: 1.6rem;
+    color: var(--muted-foreground);
+}

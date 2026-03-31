@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
-import SideBar from "~/components/sideBar/SideBar";
 import styles from "./MainLayout.module.css";
+import Sidebar from "~/shared/components/sideBar/SideBar";
 
 export default function MainLayout() {
   return (
     <div className={styles.container}>
-      <SideBar />
+      <Sidebar />
 
       <div className={styles.content}>
         <header className={styles.header}>

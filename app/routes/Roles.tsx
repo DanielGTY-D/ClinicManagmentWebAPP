@@ -1,8 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
 import type { Route } from "./+types/Roles";
-import useFetchRoleData from "~/shared/hooks/useFetchRoleData";
-import RouteHeader from "~/components/routeHeader/RouteHeader";
-import InputSearch from "~/components/inputSearch/InputSearch";
+
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,37 +9,20 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+
 export default function Roles() {
-  const { getRoles } = useFetchRoleData();
-  const { data, isError, error, isLoading, isSuccess } = useQuery({
-    queryKey: ["roles"],
-    queryFn: getRoles,
-    retry: 2,
-  });
-
-  console.log(data, error);
-
+  
   return (
     <>
-      <RouteHeader
-        title="Roles"
-        description="Maneja tus roles de usuario"
-        buttonName="Add New Role"
+      <RouteHeader 
+        routeHeader="Roles"
+        routeSubHeader="Add New Role"
+        customButtonProps={{
+          bg: "blue",
+          textContent: "Add New Role",
+          icon: "add"
+        }}
       />
-
-      <InputSearch />
-
-      <div>
-        {isLoading && <p>Loading...</p>}
-        {isSuccess &&
-          data &&
-          data.map((role) => (
-            <>
-              <li>{role.id}</li>
-              <li>{role.name}</li>
-            </>
-          ))}
-      </div>
     </>
   );
 }

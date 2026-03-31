@@ -1,0 +1,45 @@
+.cardList {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+}
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5rem;
+}
+.cardTitle {
+
+}
+.cardData {
+    font-size: 3rem;
+    margin-top: 4rem;
+}
+.cardIcon {
+    height: 2rem;
+    width: 2rem;
+}
+.cardButton {
+    display: flex;
+    align-items: center;
+    color: var(--blue);
+}
+.cardIconButton {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/*  */
+
+.actions {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+}

@@ -1,0 +1,279 @@
+/* ============================================================
+   Sidebar.module.css — ClinicManagement Healthcare Sidebar
+   ============================================================ */
+
+/* CSS Variables */
+.sidebar {
+  --sidebar-bg: #f4f5f7;
+  --sidebar-width: 220px;
+  --accent: #3b6ef4;
+  --accent-light: #e8eeff;
+  --text-primary: #1a1d23;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --border: #e5e7eb;
+  --item-hover-bg: #eaecf0;
+  --active-bg: #dce5fd;
+  --active-text: #3b6ef4;
+  --logo-bg: #3b6ef4;
+  --radius: 8px;
+  --font: "DM Sans", "Segoe UI", sans-serif;
+  --transition: 150ms ease;
+
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font);
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 16px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.logoWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--logo-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.logoWrapper svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brandName {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brandSub {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* ── Nav Container ───────────────────────────────────── */
+.nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.nav::-webkit-scrollbar {
+  width: 4px;
+}
+.nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nav::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* ── Nav Item (base) ─────────────────────────────────── */
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: var(--radius);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 1;
+  transition: background-color var(--transition), color var(--transition);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navItem:hover {
+  background-color: var(--item-hover-bg);
+}
+
+.navItem.active {
+  background-color: var(--active-bg);
+  color: var(--active-text);
+  font-weight: 600;
+}
+
+.navItem.active .navIcon svg {
+  stroke: var(--active-text);
+}
+
+/* Nested items have slightly smaller text and lighter color */
+.navItem.nested {
+  font-size: 12.5px;
+  color: #374151;
+  padding-left: 12px;
+}
+
+/* ── Nav Icon ────────────────────────────────────────── */
+.navIcon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.navIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.navItem:hover .navIcon {
+  color: var(--text-primary);
+}
+
+.navItem.active .navIcon {
+  color: var(--active-text);
+}
+
+/* ── Nav Label ───────────────────────────────────────── */
+.navLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Group ───────────────────────────────────────────── */
+.group {
+  margin-top: 6px;
+}
+
+/* ── Group Header (collapsible trigger) ──────────────── */
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  border-radius: var(--radius);
+  transition: background-color var(--transition);
+}
+
+.groupHeader:hover {
+  background-color: var(--item-hover-bg);
+}
+
+.groupIcon {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.groupIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.groupLabel {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.chevron {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.chevron svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Group Items (collapsible panel) ─────────────────── */
+.groupItems {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease;
+  overflow: hidden;
+}
+
+.groupItems.open {
+  grid-template-rows: 1fr;
+}
+
+.groupItems > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* The inner wrapper must not have overflow:hidden itself,
+   otherwise items would be clipped during animation.
+   We wrap items in a div inside groupItems in the JSX — 
+   since we didn't, we rely on grid for clipping. */
+.groupItems .navItem {
+  /* slight left indent for children */
+  padding-left: 14px;
+}
