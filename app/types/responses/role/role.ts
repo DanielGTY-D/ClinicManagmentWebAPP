@@ -3,4 +3,4 @@ import type { roleResponseSchema, rolesResponseSchema } from "~/schemas/role/rol
 
 
 export type roleResponse = z.infer<typeof roleResponseSchema>;
-export type rolesType = z.infer<typeof rolesResponseSchema>; 
+export type rolesResponse = z.infer<typeof rolesResponseSchema>; 

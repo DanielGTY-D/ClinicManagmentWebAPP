@@ -35,11 +35,27 @@
     width: 1.5rem;
     height: 1.5rem;
 }
-
 /*  */
-
 .actions {
     margin-top: 3rem;
     display: flex;
     gap: 2rem;
+}
+/*  */
+.table {
+    margin-top: 3rem;
+}
+.tableContent {
+    width: 100%;
+    margin-top: 3rem;
+}
+.tableHeader {
+    background-color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+.tableHeaderCol {
+    padding: 1rem 1rem 0.5rem 1rem;
+    font-size: 1.4rem;
+    text-align: left;
+    font-weight: normal;
 }

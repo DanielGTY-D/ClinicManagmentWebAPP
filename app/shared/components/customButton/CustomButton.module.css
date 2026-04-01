@@ -4,12 +4,13 @@
     gap: 1rem;
     padding: 1rem 2rem;
     border-radius: var(--radius);
+    cursor: pointer;
 }
 
 .icon {
     display: block;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .blue {
@@ -30,5 +31,5 @@
 }
 
 .text {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }

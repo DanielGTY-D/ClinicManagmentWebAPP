@@ -1,7 +1,8 @@
-import { NavLink } from "react-router";
 import styles from "./CustomButton.module.css";
+import Icons from "~/shared/icons/Icons";
+import { NavLink } from "react-router";
 
-type Icons = "add" | "";
+type Icons = "AddIcon" | "";
 type Background = "blue" | "white";
 
 export interface CustomButtonProps {
@@ -10,6 +11,8 @@ export interface CustomButtonProps {
   textContent: string;
   isLink?: boolean;
   route?: string;
+  onModalOpen?: () => void;
+  type: "button" | "reset" | "submit"
 }
 
 export default function CustomButton({
@@ -18,36 +21,20 @@ export default function CustomButton({
   textContent,
   isLink,
   route,
+  onModalOpen,
+  type = "button"
 }: CustomButtonProps) {
-  const icons = {
-    add: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        className="lucide lucide-plus mr-2 h-4 w-4"
-        aria-hidden="true"
-      >
-        <path d="M5 12h14"></path>
-        <path d="M12 5v14"></path>
-      </svg>
-    ),
-  };
-
   return isLink ? (
-    <NavLink to={route ?? ""}
+    <NavLink
+      to={route ?? ""}
       className={`
         ${styles.container} 
         ${bg === "blue" && styles.blue} 
         ${bg === "white" && styles.white}`}
     >
-      {icon && <i className={styles.icon}>{icons[icon]}</i>}
+      {icon && (
+        <i className={styles.icon}>{icon === "AddIcon" && <Icons.AddIcon />}</i>
+      )}
       <span className={styles.text}>{textContent}</span>
     </NavLink>
   ) : (
@@ -56,8 +43,12 @@ export default function CustomButton({
         ${styles.container} 
         ${bg === "blue" && styles.blue} 
         ${bg === "white" && styles.white}`}
+        onClick={onModalOpen}
+        type={type}
     >
-      {icon && <i className={styles.icon}>{icons[icon]}</i>}
+      {icon && (
+        <i className={styles.icon}>{icon === "AddIcon" && <Icons.AddIcon />}</i>
+      )}
       <span className={styles.text}>{textContent}</span>
     </button>
   );

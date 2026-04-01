@@ -1,17 +1,16 @@
-import type { rolesType, roleResponse } from "~/types/responses/role/role";
+import type { rolesResponse, roleResponse } from "~/types/responses/role/role";
 import styles from "./TableRoles.module.css";
 import { parseToDate } from "~/shared/utils/parseDate";
 import { useAppStore } from "~/shared/stores/useAppStore";
+import Icons from "~/shared/icons/Icons";
 
 type TableRolesProps = {
-  roles?: rolesType;
-  onEdit?: (role: any) => void;
+  roles?: roleResponse[];
+  onEdit?: (role: roleResponse) => void;
+  onDelete?: (id: number) => void;
 };
 
-export default function TableRoles({ roles, onEdit }: TableRolesProps) {
-  const setActiveModal = useAppStore((state) => state.setActivateModal);
-
-
+export default function TableRoles({ roles, onEdit,onDelete }: TableRolesProps) {
   return (
     <div className={styles["table-container"]}>
       <table className={styles["table"]}>
@@ -64,41 +63,13 @@ export default function TableRoles({ roles, onEdit }: TableRolesProps) {
                      onEdit?.(role);
                    }}
                  >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-pencil h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
-                    <path d="m15 5 4 4"></path>
-                  </svg>
+                  <Icons.EditIcon />
                 </button>
-                <button className={styles["table-action-delete"]}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-trash h-4 w-4 text-destructive"
-                    aria-hidden="true"
+                <button
+                   className={styles["table-action-delete"]}
+                   onClick={() => onDelete?.(role.id)}
                   >
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                    <path d="M3 6h18"></path>
-                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                  </svg>
+                  <Icons.DeleteIcon />
                 </button>
               </td>
             </tr>
