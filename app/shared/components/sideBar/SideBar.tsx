@@ -155,7 +155,6 @@ const groups: NavGroup[] = [
 ];
 
 const Sidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("dashboard");
   const [openGroups, setOpenGroups] = useState<Set<string>>(
     new Set(groups.map((g) => g.id)),
   );
@@ -187,11 +186,10 @@ const Sidebar: React.FC = () => {
       <nav className={styles.nav}>
         {/* Top standalone items */}
         {topItems.map((item) => (
-          <NavLink to={item.route} key={item.id}>
+          <NavLink to={item.route} key={item.id} className={({isActive}) => isActive ? styles.active : ""}>
             <button
               key={item.id}
-              className={`${styles.navItem} ${activeItem === item.id ? styles.active : ""}`}
-              onClick={() => setActiveItem(item.id)}
+              className={`${styles.navItem}`}
             >
               <span className={styles.navIcon}>
                 <item.icon />
@@ -226,11 +224,10 @@ const Sidebar: React.FC = () => {
             >
               <div>
                 {group.items.map((item) => (
-                  <NavLink to={item.route} key={item.id}>
+                  <NavLink to={item.route} key={item.id} className={({isActive}) => isActive ? styles.active : ""}>
                     <button
                       key={item.id}
-                      className={`${styles.navItem} ${styles.nested} ${activeItem === item.id ? styles.active : ""}`}
-                      onClick={() => setActiveItem(item.id)}
+                      className={`${styles.navItem} ${styles.nested}`}
                     >
                       <span className={styles.navIcon}>
                         <item.icon />

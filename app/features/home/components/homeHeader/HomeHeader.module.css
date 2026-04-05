@@ -1,0 +1,88 @@
+.header {
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+
+  animation: headerAnim linear;
+  animation-timeline: scroll();
+  animation-range: 0px 100%;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.headerBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  i {
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgb(42, 127, 255), rgb(78, 205, 196));
+  }
+
+  animation: itemAnim linear;
+  animation-timeline: scroll();
+  animation-range: 0px 100%;
+}
+
+.headerNav {
+  display: flex;
+  gap: 2rem;
+}
+
+.navItem {
+  color: #dbeafecc;
+
+  animation: itemAnim linear;
+  animation-timeline: scroll();
+  animation-range: 0px 100%;
+}
+
+.headerActions {
+  display: flex;
+  gap: 1rem;
+}
+
+@keyframes headerAnim {
+  from {
+    background-color: transparent;
+  }
+
+  10% {
+    box-shadow: 0px 2px 20px 1px rgba(0 0 0 / 0.65);
+    background-color: var(--accent);
+  }
+
+  100% {
+    background-color: var(--accent);
+    box-shadow: 0px 2px 20px 1px rgba(0 0 0 / 0.65);
+  }
+}
+
+@keyframes itemAnim {
+  from {
+    color: #dbeafecc;
+  }
+
+  10% {
+    color: black;
+  }
+
+  100% {
+    color: black;
+  }
+}

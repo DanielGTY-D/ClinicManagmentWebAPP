@@ -1,9 +1,9 @@
 import { api } from "~/API";
-import type { rolesResponse, roleResponse } from "~/types/responses/role/role";
+import type { rolesResponse, roleResponse } from "~/features/roles/types/role";
 import {
   roleResponseSchema,
   rolesResponseSchema,
-} from "~/schemas/role/roleResponse";
+} from "~/features/roles/schemas/roleResponse";
 import type { RoleRequest } from "~/types/request/role";
 
 export default function useRoleData() {

@@ -1,0 +1,134 @@
+@import url("../../../../shared/animations/animations.css");
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background: linear-gradient(145deg, rgb(10, 22, 40) 0%, rgb(26, 58, 107) 50%, rgb(13, 107, 122) 100%);
+  padding: 5rem;
+  height: 100dvh;
+}
+
+.web {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgb(255, 255, 255) 1px, transparent 1px), linear-gradient(90deg, rgb(255, 255, 255) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.05;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerIcon {
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgb(42, 127, 255), rgb(78, 205, 196));
+}
+
+.headerTittle {
+  color: var(--accent);
+  font-size: 1.6rem;
+  font-weight: bold;
+
+  span {
+    color: var(--electric-green);
+  }
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.imageBackground {
+  z-index: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+      rgba(42, 127, 255, 0.3),
+      rgba(78, 205, 196, 0.3));
+  transform: rotate(-3deg);
+  border-radius: var(--radius);
+}
+
+.tag {
+  display: flex;
+  gap: 1rem;
+  background: var(--accent);
+  width: fit-content;
+  border-radius: var(--radius);
+  padding: 1rem 2rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(32px);
+  z-index: 5;
+
+  animation: bounce 4s infinite;
+}
+
+.tagIcon {
+  background-color: var(--soft-green);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+
+  svg {
+    fill: var(--electric-green);
+  }
+}
+
+.tagContent {}
+
+.tagRate {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.tagComments {
+  font-size: 1.2rem;
+  color: var(--muted-foreground);
+}
+
+.image {
+  z-index: 2;
+  position: relative;
+  width: 40rem;
+  height: 20rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  span {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+}
+
+.footerInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.footerInfoIcon {
+  background-color: var(--dark-soft-green);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  color: var(--electric-green);
+}
+
+.footerInfoText {}

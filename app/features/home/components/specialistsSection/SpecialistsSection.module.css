@@ -1,0 +1,32 @@
+@import url("../../../../shared/animations/animations.css");
+
+.specialities {
+  background: linear-gradient(rgb(248, 255, 254) 0%, rgb(238, 244, 255) 100%);
+}
+.specialitiesContainer {
+  max-width: 75%;
+  margin: 0 auto;
+}
+.specialitiesHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  animation: fadeIn 1s;
+}
+.specialitiesTittle {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--soft-blue);
+  padding: 1rem;
+  border-radius: var(--radius);
+  color: var(--electric-blue);
+  font-weight: bold;
+}
+.specialitiesContent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 5rem 0;
+}

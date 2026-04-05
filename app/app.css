@@ -39,6 +39,23 @@
   --button-hover: #dce9ff;
   --error: #c10007;
   --success: #d0fae5;
+
+  --soft-blue: rgb(238, 244, 255);
+  --soft-purple: rgb(245, 240, 255);
+  --soft-green: rgb(238, 251, 249);
+  --soft-yellow: rgb(255, 251, 235);
+  --soft-red: rgb(254, 242, 242);
+  --soft-pink: rgb(253, 242, 248);
+
+  --dark-soft-green: rgba(78, 205, 196, 0.15);
+
+  --electric-blue: rgb(42, 127, 255);
+  --electric-purple: rgb(124, 58, 237);
+  --electric-green: rgb(78, 205, 196);
+  ;
+  --electric-yellow: rgb(245, 158, 11);
+  --electric-red: rgb(239, 68, 68);
+  --electric-pink: rgb(236, 72, 153);
 }
 
 .dark {
@@ -143,6 +160,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 svg {
   width: 100%;
   height: 100%;

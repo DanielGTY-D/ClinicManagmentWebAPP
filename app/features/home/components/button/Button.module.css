@@ -1,0 +1,34 @@
+.btn {
+  padding: 0.5rem 1rem;
+  color: var(--accent);
+  border-radius: var(--radius);
+  font-weight: bold;
+}
+.simple {
+  border: 1px solid var(--accent);
+}
+.simple-blue {
+  border: 1px solid var(--electric-blue);
+}
+.gradient {
+  background: linear-gradient(135deg, rgb(42, 127, 255), rgb(78, 205, 196));
+}
+
+.animationScroll {
+  animation: scrollAnimation linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scrollAnimation {
+  from {
+    border: 1px solid var(--accent);
+  }
+  10% {
+    border: 1px solid var(--electric-blue);
+    color: var(--electric-blue);
+  }
+  to {
+    border: 1px solid var(--electric-blue);
+    color: var(--electric-blue);
+  }
+}

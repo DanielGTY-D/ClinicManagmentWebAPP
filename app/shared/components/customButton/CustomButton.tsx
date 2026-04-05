@@ -12,7 +12,7 @@ export interface CustomButtonProps {
   isLink?: boolean;
   route?: string;
   onModalOpen?: () => void;
-  type: "button" | "reset" | "submit"
+  type?: "button" | "reset" | "submit"
 }
 
 export default function CustomButton({

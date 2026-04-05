@@ -1,0 +1,42 @@
+.statics {
+  background: linear-gradient(135deg, rgb(10, 22, 40), rgb(26, 58, 107));
+  margin: 6rem 0;
+}
+.staticsContainer {
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 10rem 0;
+}
+.staticsList {
+  display: flex;
+  justify-content: space-between;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.itemIcon {
+    background-color: var(--dark-soft-green);
+    color: var(--electric-green);
+    width: 6rem;
+    height: 6rem;
+    padding: 1.5rem;
+    border-radius: var();
+}
+.itemContent {
+    color: var(--accent);
+
+    p:first-of-type {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    p:last-of-type {
+        text-align: center;
+        font-size: 1.6rem;
+        color: var(--muted-foreground);
+    }
+}

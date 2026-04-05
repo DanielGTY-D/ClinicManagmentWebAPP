@@ -1,0 +1,92 @@
+.card {
+  padding: 2rem;
+  box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--background);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2rem);
+    .cardLink {
+      opacity: 1;
+    }
+  }
+}
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1 0 20rem;
+}
+.cardIcon {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+.cardLink {
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+.blue {
+  color: var(--electric-blue);
+}
+.purple {
+  color: var(--electric-purple);
+}
+.green {
+  color: var(--electric-green);
+}
+.yellow {
+  color: var(--electric-yellow);
+}
+.red {
+  color: var(--electric-red);
+}
+.pink {
+  color: var(--electric-pink);
+}
+.bg-blue {
+  background: var(--soft-blue);
+
+  svg {
+    color: var(--electric-blue);
+  }
+}
+
+.bg-purple {
+  background: var(--soft-purple);
+
+  svg {
+    color: var(--electric-purple);
+  }
+}
+.bg-green {
+  background: var(--soft-green);
+
+  svg {
+    color: var(--electric-green);
+  }
+}
+.bg-yellow {
+  background: var(--soft-yellow);
+
+  svg {
+    color: var(--electric-yellow);
+  }
+}
+.bg-red {
+  background: var(--soft-red);
+  svg {
+    color: var(--electric-red);
+  }
+}
+.bg-pink {
+  background: var(--soft-pink);
+
+  svg {
+    color: var(--electric-pink);
+  }
+}

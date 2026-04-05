@@ -133,13 +133,13 @@
   background-color: var(--item-hover-bg);
 }
 
-.navItem.active {
+.active {
   background-color: var(--active-bg);
   color: var(--active-text);
   font-weight: 600;
 }
 
-.navItem.active .navIcon svg {
+.active .navIcon svg {
   stroke: var(--active-text);
 }
 

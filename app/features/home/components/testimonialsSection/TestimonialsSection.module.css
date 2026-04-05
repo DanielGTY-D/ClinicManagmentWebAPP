@@ -1,0 +1,46 @@
+.testimonials {
+  margin: 4rem 0;
+}
+.testimonialsContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background-color: var(--background);
+  box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.1);
+  min-width: calc(33.33% - 1rem);
+  border-radius: var(--radius);
+  padding: 2rem;
+
+  &:hover {
+    transform: translateY(-1rem);
+    .cardLink {
+      opacity: 1;
+    }
+  }
+
+  transition: all 0.5s ease-in-out;
+}
+.cardIconList {
+  display: flex;
+}
+.cardIcon {
+  margin-bottom: 2rem;
+}
+.cardText {
+  color: var(--muted-foreground);
+}
+.cardBy {
+  margin-top: 2rem;
+  background-color: var(--soft-purple);
+  padding: 0.5rem;
+  width: fit-content;
+  border-radius: var(--radius);
+  color: var(--electric-purple);
+  font-weight: bold;
+}
