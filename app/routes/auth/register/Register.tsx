@@ -1,7 +1,8 @@
 import type { Route } from "./+types/Register";
 import styles from "./Register.module.css";
-import RegisterForm from "~/features/auth/register/components/registerForm/RegisterForm";
+import RegisterForm from "~/features/auth/components/register/registerForm/RegisterForm";
 import Hero from "~/features/auth/components/hero/Hero";
+import Notification from "~/shared/components/notification/Notification";
 
 
 export function meta({ }: Route.MetaArgs) {
@@ -16,6 +17,7 @@ export default function Register() {
 
   return (
     <div className={styles.register}>
+      <Notification />
       <div className={styles.registerContainer}>
         <Hero />
         <RegisterForm />

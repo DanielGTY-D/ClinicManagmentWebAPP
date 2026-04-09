@@ -1,5 +1,8 @@
-.login {}
+.login {
+  height: 100dvh;
+}
 
 .loginContainer {
   display: flex;
+  height: 100%;
 }

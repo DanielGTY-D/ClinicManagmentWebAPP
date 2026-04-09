@@ -1,5 +1,8 @@
-.register {}
+.register {
+  height: 100dvh;
+}
 
 .registerContainer {
   display: flex;
+  height: 100%;
 }

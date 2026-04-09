@@ -4,12 +4,17 @@ import {
   roleResponseSchema,
   rolesResponseSchema,
 } from "~/features/roles/schemas/roleResponse";
-import type { RoleRequest } from "~/types/request/role";
+import type { RoleRequest } from "~/features/roles/types/role";
 
 export default function useRoleData() {
+  const token = localStorage.getItem("TOKEN");
   const getAll = async (): Promise<rolesResponse> => {
     try {
-      const response = await api.get("roles");
+      const response = await api.get("roles", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = rolesResponseSchema.safeParse(response.data);
 
       if (!result.success) {
@@ -25,7 +30,11 @@ export default function useRoleData() {
   const post = async (data: RoleRequest): Promise<roleResponse> => {
     try {
       // console.log(JSON.stringify(data))
-      const response = await api.post("roles", data);
+      const response = await api.post("roles", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = roleResponseSchema.safeParse(response.data);
 
       if (!result.success) {
@@ -40,7 +49,11 @@ export default function useRoleData() {
 
   const put = async (data: RoleRequest, id: number): Promise<roleResponse> => {
     try {
-      const response = await api.put(`roles/${id}`, data);
+      const response = await api.put(`roles/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = roleResponseSchema.safeParse(response.data);
 
       if (!result.success) {
@@ -55,7 +68,11 @@ export default function useRoleData() {
 
   const remove = async (id: number) => {
     try {
-      const response = await api.delete(`roles/${id}`);
+      const response = await api.delete(`roles/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = roleResponseSchema.safeParse(response.data);
 
       if (!result.success) {
@@ -66,12 +83,12 @@ export default function useRoleData() {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   return {
     getAll,
     post,
     put,
-    remove
+    remove,
   };
 }

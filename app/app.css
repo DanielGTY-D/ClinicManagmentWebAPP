@@ -52,10 +52,12 @@
   --electric-blue: rgb(42, 127, 255);
   --electric-purple: rgb(124, 58, 237);
   --electric-green: rgb(78, 205, 196);
-  ;
+  
   --electric-yellow: rgb(245, 158, 11);
   --electric-red: rgb(239, 68, 68);
   --electric-pink: rgb(236, 72, 153);
+
+  --blue-darken: rgb(27, 32, 57);
 }
 
 .dark {

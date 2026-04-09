@@ -1,4 +1,4 @@
-import Button from "../button/Button";
+import Button from "../../../../shared/components/button/Button";
 import styles from "./CardSpecialists.module.css";
 
 type backgroundBadge = "green" | "blue" | "yellow" | "purple" | "pink";

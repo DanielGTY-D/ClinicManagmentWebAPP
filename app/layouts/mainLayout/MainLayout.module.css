@@ -10,9 +10,14 @@
 }
 .outlet-container {
   width: 95%;
+  height: 100%;
   margin: 2rem auto;
 }
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
   border-bottom: 1px solid var(--border);
 }
 .toggle-sidebar {

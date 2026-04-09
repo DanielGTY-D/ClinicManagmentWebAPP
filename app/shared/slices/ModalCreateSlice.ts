@@ -1,5 +1,5 @@
 import type { StateCreator } from "zustand";
-import type { RoleRequest } from "~/types/request/role";
+import type { RoleRequest } from "~/features/roles/types/role";
 
 export interface ModalCreateState {
   isModalOpen: boolean;

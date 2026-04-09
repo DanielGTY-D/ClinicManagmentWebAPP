@@ -1,9 +1,31 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import styles from "./HomeHeader.module.css";
 import Icons from "~/shared/icons/Icons";
-import Button from "../button/Button";
+import Button from "../../../../shared/components/button/Button";
+import { JWTDecode, type CustomPayload } from "~/shared/utils/jwtDecode";
+import { useEffect, useState } from "react";
 
 export default function HomeHeader() {
+  const [tokenPayload, setTokenPayload] = useState<CustomPayload | null>(null);
+  const navigate = useNavigate();
+  const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+
+  const onCloseSession = () => {
+    localStorage.removeItem("TOKEN")
+    setTokenPayload(null);
+  }
+
+
+  useEffect(() => {
+    const tokenData = JWTDecode();
+
+    if (!tokenData) {
+      navigate("/");
+    }
+
+    setTokenPayload(tokenData);
+  }, []);
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
@@ -32,13 +54,39 @@ export default function HomeHeader() {
         </ul>
 
         <div className={styles.headerActions}>
-          <Button
-            route="/"
-            styleType="simple"
-            textContent="Iniciar sesion"
-            hasScrollAnimation={true}
-          />
-          <Button route="/" styleType="gradient" textContent="Registrarse" />
+          {tokenPayload ? (
+            <>
+              <Button
+                route=""
+                styleType="simple"
+                textContent="Cerrar sesion"
+                type="link"
+                customFn={onCloseSession}
+              />
+              <Button
+                route="dashboard"
+                styleType="gradient"
+                textContent="Dashboard"
+                type="link"
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                route="auth/login"
+                styleType="simple"
+                textContent="Iniciar sesion"
+                hasScrollAnimation={true}
+                type="link"
+              />
+              <Button
+                route="auth/register"
+                styleType="gradient"
+                textContent="Registrarse"
+                type="link"
+              />
+            </>
+          )}
         </div>
       </div>
     </header>

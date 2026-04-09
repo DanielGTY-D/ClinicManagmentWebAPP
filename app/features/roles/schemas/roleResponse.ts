@@ -10,4 +10,8 @@ export const roleResponseSchema = z.object({
     updatedAt: z.string().nullable(),
 })
 
+export const roleOnlyNameResponseSchema = z.object({
+    name: z.string()
+})
+
 export const rolesResponseSchema = z.array(roleResponseSchema);

@@ -1,0 +1,45 @@
+@import url("../../../shared/animations/animations.css");
+
+.container {
+  padding: 1rem 2rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: scale(0);
+  transition: transform 0.6s ease-in-out;
+  border-radius: var(--radius);
+
+  &::after {
+    content: "";
+    width: 100%;
+    position: relative;
+    display: block;
+    animation: barra 4s linear;
+  }
+}
+
+.error {
+  background-color: var(--soft-red);
+  color: var(--electric-red);
+  border: 1px solid var(--electric-red);
+}
+
+.success {
+  background-color: var(--soft-green);
+  color: var(--electric-green);
+  border: 1px solid var(--electric-green);
+}
+.show {
+  transform: scale(1);
+}
+
+@keyframes barra {
+  from {
+    border-bottom: 4px solid var(--electric-red);
+    transform: scale(0);
+  }
+  to {
+    border-bottom: 4px solid var(--electric-red);
+    transform: scale(1);
+  }
+}

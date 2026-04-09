@@ -6,14 +6,16 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import useRoleData from "~/shared/hooks/useRoleData";
+import useRoleData from "~/features/roles/hooks/useRoleData";
 import TableRoles from "~/features/roles/components/tableRoles/TableRoles";
 import Modal from "~/shared/components/modal/RoleModal";
 import { useAppStore } from "~/shared/stores/useAppStore";
 import type { roleResponse } from "~/features/roles/types/role";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { RoleRequest } from "~/features/roles/types/role";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { JWTDecode, type CustomPayload } from "~/shared/utils/jwtDecode";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -24,14 +26,20 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Roles() {
   const { getAll, post, put, remove } = useRoleData();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isModalOpen = useAppStore((state) => state.isModalOpen);
   const setToggleModal = useAppStore((state) => state.setToggleModal);
+  const setNotificationProps = useAppStore(
+    (state) => state.setShowNotificationProps,
+  );
+  const [tokenPayload, setTokenPayload] = useState<CustomPayload | null>(null);
   const [idRole, setIdRole] = useState<number>();
   const [isEditing, setIsEditing] = useState(false);
   const [roleData, setRoleData] = useState<RoleRequest>({
     name: "",
   });
+  const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 
   const {
     data: roles,
@@ -47,13 +55,22 @@ export default function Roles() {
   const createRole = useMutation({
     mutationFn: post,
     onSuccess: (data) => {
-      console.log("Rol Creado Correctamente");
+      setNotificationProps({
+        message: "Role creado exitosamente",
+        state: true,
+        type: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       setRoleData({ name: "" });
+      setToggleModal(!isModalOpen);
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.headers.errors);
+        setNotificationProps({
+          message: error.response?.data.errors.Name,
+          state: true,
+          type: "error",
+        });
       }
     },
   });
@@ -62,14 +79,23 @@ export default function Roles() {
     mutationFn: ({ id, role }: { role: RoleRequest; id: number }) =>
       put(role, id),
     onSuccess: (data) => {
-      console.log("Rol actualizado correctamente");
+      setNotificationProps({
+        message: "Role actualizado exitosamente",
+        state: true,
+        type: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       setRoleData({ name: "" });
+      setToggleModal(!isModalOpen);
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data.errors);
-        console.log(error.response?.status);
+        console.log(error.response?.data.errors)
+        setNotificationProps({
+          message: error.response?.data.errors.Name,
+          state: true,
+          type: "error",
+        });
       }
       console.log(error);
     },
@@ -78,8 +104,13 @@ export default function Roles() {
   const deleteRole = useMutation({
     mutationFn: (id: number) => remove(id),
     onSuccess: (data) => {
-      console.log("Rol eliminado correctamente");
+      setNotificationProps({
+        message: "Role actualizado exitosamente",
+        state: true,
+        type: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["roles"] });
+      setToggleModal(!isModalOpen);
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
@@ -118,7 +149,6 @@ export default function Roles() {
   };
 
   const onChangeRoleField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name, e.target.value);
     setRoleData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -134,6 +164,16 @@ export default function Roles() {
       placeholder: "Ingresa el nombre del role",
     },
   ];
+
+  useEffect(() => {
+    const tokenData = JWTDecode();
+
+    if (!tokenData) {
+      navigate("/");
+    }
+
+    setTokenPayload(tokenData);
+  }, []);
 
   if (isLoading) return <div>Cargando roles...</div>;
   if (error) return <div>Error al cargar roles</div>;

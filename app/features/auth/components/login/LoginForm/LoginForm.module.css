@@ -67,14 +67,27 @@
   border-radius: var(--radius);
   width: 100%;
 }
+.error {
+  border: 1px solid var(--electric-red);
 
+  &::placeholder {
+    color: var(--electric-red);
+  }
+}
 .actions {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   margin: 2rem 0;
 
-  span {
+  a {
     color: var(--electric-blue);
+    font-weight: bold;
+  }
+
+  div {
+    display: flex;
+    gap: 0.5rem;
   }
 }
 

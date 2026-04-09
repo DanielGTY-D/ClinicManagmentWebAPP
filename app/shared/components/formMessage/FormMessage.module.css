@@ -1,0 +1,7 @@
+.container {
+    background-color: var(--soft-red);
+    color: var(--electric-red);
+    border: 1px solid var(--electric-red);
+    padding: 0.5rem 1rem;
+    text-align: center;
+}

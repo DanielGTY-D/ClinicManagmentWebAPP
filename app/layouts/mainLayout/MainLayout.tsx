@@ -1,7 +1,8 @@
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import styles from "./MainLayout.module.css";
 import Sidebar from "~/shared/components/sideBar/SideBar";
 import Footer from "~/shared/components/footer/Footer";
+import Notification from "~/shared/components/notification/Notification";
 
 export default function MainLayout() {
   return (
@@ -31,11 +32,14 @@ export default function MainLayout() {
               <path d="M9 3v18"></path>
             </svg>
           </button>
+          <NavLink to={"/"}>Ir al incio</NavLink>
         </header>
 
         <div className={styles["outlet-container"]}>
           <Outlet />
         </div>
+
+        <Notification/>
       </div>
     </div>
   );

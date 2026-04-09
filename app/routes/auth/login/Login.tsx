@@ -1,7 +1,8 @@
+import Notification from "~/shared/components/notification/Notification";
 import type { Route } from "./+types/Login";
 import styles from "./Login.module.css";
 import Hero from "~/features/auth/components/hero/Hero";
-import LoginForm from "~/features/auth/login/components/LoginForm/LoginForm";
+import LoginForm from "~/features/auth/components/login/LoginForm/LoginForm";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -13,6 +14,7 @@ export function meta({ }: Route.MetaArgs) {
 export default function Login() {
   return (
     <div className={styles.login}>
+      <Notification />
       <div className={styles.loginContainer}>
         <Hero />
         <LoginForm />

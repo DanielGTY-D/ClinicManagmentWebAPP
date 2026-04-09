@@ -1,7 +1,8 @@
-import React, { useState, type JSX } from "react";
+import React, { useEffect, useState, type JSX } from "react";
 import styles from "./SideBar.module.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import Icons from "~/shared/icons/Icons";
+import { JWTDecode, type CustomPayload } from "~/shared/utils/jwtDecode";
 
 
 interface NavItem {
@@ -155,6 +156,8 @@ const groups: NavGroup[] = [
 ];
 
 const Sidebar: React.FC = () => {
+  const [tokenPayload, setTokenPayload] = useState<CustomPayload | null>(null);
+  const navigate = useNavigate();
   const [openGroups, setOpenGroups] = useState<Set<string>>(
     new Set(groups.map((g) => g.id)),
   );
@@ -166,6 +169,16 @@ const Sidebar: React.FC = () => {
       return next;
     });
   };
+
+  useEffect(() => {
+      const tokenData = JWTDecode();
+  
+      if (!tokenData) {
+        navigate("/")
+      }
+  
+      setTokenPayload(tokenData);
+    }, []);
 
   return (
     <aside className={styles.sidebar}>
@@ -200,7 +213,7 @@ const Sidebar: React.FC = () => {
         ))}
 
         {/* Groups */}
-        {groups.map((group) => (
+        {tokenPayload?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] !== "patient" && groups.map((group) => (
           <div key={group.id} className={styles.group}>
             <button
               className={styles.groupHeader}

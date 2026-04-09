@@ -76,3 +76,11 @@
     color: var(--electric-blue);
   }
 }
+
+.error {
+  border: 1px solid var(--electric-red);
+
+  &::placeholder {
+    color: var(--electric-red);
+  }
+}

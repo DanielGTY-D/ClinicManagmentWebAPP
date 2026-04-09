@@ -6,6 +6,8 @@ interface ButtonProps {
   styleType: "simple" | "simple-blue" | "gradient";
   textContent: string;
   hasScrollAnimation?: boolean;
+  type: "link" | "submit";
+  customFn?: () => void;
 }
 
 export default function Button({
@@ -13,13 +15,26 @@ export default function Button({
   styleType,
   textContent,
   hasScrollAnimation,
+  type,
+  customFn
 }: ButtonProps) {
-  return (
+  return type === "submit" ? (
+    <button
+      className={`${styles.btn} 
+      ${styles[styleType]} 
+      ${styleType !== "gradient" ? (hasScrollAnimation ? styles.animationScroll : "") : ""}`}
+      type="submit"
+      onClick={customFn}
+    >
+      {textContent}
+    </button>
+  ) : (
     <NavLink
       to={route}
       className={`${styles.btn} 
       ${styles[styleType]} 
       ${styleType !== "gradient" ? (hasScrollAnimation ? styles.animationScroll : "") : ""}`}
+      onClick={customFn}
     >
       {textContent}
     </NavLink>
