@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router";
 import styles from "./MainLayout.module.css";
 import Sidebar from "~/shared/components/sideBar/SideBar";
-import Footer from "~/shared/components/footer/Footer";
 import Notification from "~/shared/components/notification/Notification";
 
 export default function MainLayout() {
@@ -39,7 +38,7 @@ export default function MainLayout() {
           <Outlet />
         </div>
 
-        <Notification/>
+        <Notification />
       </div>
     </div>
   );

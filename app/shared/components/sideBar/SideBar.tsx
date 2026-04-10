@@ -171,14 +171,14 @@ const Sidebar: React.FC = () => {
   };
 
   useEffect(() => {
-      const tokenData = JWTDecode();
-  
-      if (!tokenData) {
-        navigate("/")
-      }
-  
-      setTokenPayload(tokenData);
-    }, []);
+    const tokenData = JWTDecode();
+
+    if (!tokenData) {
+      navigate("/")
+    }
+
+    setTokenPayload(tokenData);
+  }, []);
 
   return (
     <aside className={styles.sidebar}>
@@ -199,7 +199,7 @@ const Sidebar: React.FC = () => {
       <nav className={styles.nav}>
         {/* Top standalone items */}
         {topItems.map((item) => (
-          <NavLink to={item.route} key={item.id} className={({isActive}) => isActive ? styles.active : ""}>
+          <NavLink to={item.route} end key={item.id} className={({ isActive }) => isActive ? styles.active : ""}>
             <button
               key={item.id}
               className={`${styles.navItem}`}
@@ -237,7 +237,7 @@ const Sidebar: React.FC = () => {
             >
               <div>
                 {group.items.map((item) => (
-                  <NavLink to={item.route} key={item.id} className={({isActive}) => isActive ? styles.active : ""}>
+                  <NavLink to={item.route} key={item.id} className={({ isActive }) => isActive ? styles.active : ""}>
                     <button
                       key={item.id}
                       className={`${styles.navItem} ${styles.nested}`}

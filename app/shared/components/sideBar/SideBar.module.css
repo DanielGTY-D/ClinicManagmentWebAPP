@@ -4,9 +4,7 @@
 
 /* CSS Variables */
 .sidebar {
-  /* --sidebar-bg: #f4f5f7; */
   --sidebar-width: 220px;
-  /* --accent: #3b6ef4; */
   --accent-light: #e8eeff;
   --text-primary: #1a1d23;
   --text-secondary: #6b7280;
@@ -98,9 +96,11 @@
 .nav::-webkit-scrollbar {
   width: 4px;
 }
+
 .nav::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .nav::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
@@ -115,7 +115,6 @@
   padding: 7px 10px;
   border-radius: var(--radius);
   border: none;
-  /* background: var(--blue); */
   cursor: pointer;
   text-align: left;
   color: var(--accent);
@@ -123,7 +122,6 @@
   font-size: 13px;
   font-weight: 450;
   line-height: 1;
-  transition: background-color var(--transition), color var(--transition);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -137,15 +135,15 @@
   }
 }
 
-.active {
+.active .navItem {
   background-color: var(--blue);
-  color: var(--active-text);
   font-weight: 600;
 }
 
 .active .navIcon svg {
   stroke: var(--accent);
 }
+
 
 /* Nested items have slightly smaller text and lighter color */
 .navItem.nested {
@@ -158,25 +156,10 @@
 .navIcon {
   width: 17px;
   height: 17px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  transition: color var(--transition);
 }
 
-.navIcon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.navItem:hover .navIcon {
-  color: var(--text-primary);
-}
-
-.navItem.active .navIcon {
-  color: var(--active-text);
+.active:hover .navIcon svg {
+  stroke: var(--text-primary);
 }
 
 /* ── Nav Label ───────────────────────────────────────── */
@@ -269,7 +252,7 @@
   grid-template-rows: 1fr;
 }
 
-.groupItems > * {
+.groupItems>* {
   min-height: 0;
   overflow: hidden;
 }

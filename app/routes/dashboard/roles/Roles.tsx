@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 import useRoleData from "~/features/roles/hooks/useRoleData";
 import TableRoles from "~/features/roles/components/tableRoles/TableRoles";
-import Modal from "~/shared/components/modal/RoleModal";
 import { useAppStore } from "~/shared/stores/useAppStore";
 import type { roleResponse } from "~/features/roles/types/role";
 import { useEffect, useState } from "react";
@@ -16,8 +15,9 @@ import type { RoleRequest } from "~/features/roles/types/role";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { JWTDecode, type CustomPayload } from "~/shared/utils/jwtDecode";
+import Modal from "~/features/roles/components/modal/RoleModal";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Clinic Managment - Roles" },
     { name: "description", content: "Role Management" },

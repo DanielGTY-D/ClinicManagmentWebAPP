@@ -41,6 +41,7 @@ interface IconsProps {
   StarIcon: () => JSX.Element;
   ClockIcon: () => JSX.Element;
   locationIcon: () => JSX.Element;
+  searchIcon: () => JSX.Element;
 }
 
 const Icons: IconsProps = {
@@ -647,6 +648,9 @@ const Icons: IconsProps = {
       <circle cx="12" cy="10" r="3"></circle>
     </svg>
   ),
+  searchIcon: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+  )
 };
 
 export default Icons;

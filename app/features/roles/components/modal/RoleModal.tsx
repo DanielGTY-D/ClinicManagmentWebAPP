@@ -3,9 +3,8 @@ import Container from "~/shared/components/container/Container";
 import CustomButton, {
   type CustomButtonProps,
 } from "~/shared/components/customButton/CustomButton";
-import { useState } from "react";
 import { useAppStore } from "~/shared/stores/useAppStore";
-import type { RoleRequest } from "~/types/request/role";
+import type { RoleRequest } from "~/features/roles/types/role";
 
 interface ModalFieldsProps {
   id: string;

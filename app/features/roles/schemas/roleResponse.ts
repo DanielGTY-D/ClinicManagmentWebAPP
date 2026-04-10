@@ -3,10 +3,10 @@ import { z } from "zod";
 export const roleResponseSchema = z.object({
     id: z.int(),
     name: z.string(),
-    isDeleted: z.boolean(),
+    isDeleted: z.boolean().nullable(),
     isActive: z.boolean(),
     desactivationReason: z.string().nullable(),
-    createdAt: z.string(),
+    createdAt: z.string().nullable(),
     updatedAt: z.string().nullable(),
 })
 

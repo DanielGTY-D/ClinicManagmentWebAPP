@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { roleOnlyNameResponseSchema } from '~/features/roles/schemas/roleResponse';
 
-export const userResponseSchema = z.object({
+export const userRegisterResponseSchema = z.object({
     username: z.string(),
     email: z.string(),
     firstName: z.string(),
@@ -10,6 +10,6 @@ export const userResponseSchema = z.object({
     role: roleOnlyNameResponseSchema.nullable()
 })
 
-export const loginResponseSchema = z.object({
+export const userLoginResponseSchema = z.object({
     token: z.string()
 })
