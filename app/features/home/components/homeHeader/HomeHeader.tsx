@@ -2,11 +2,11 @@ import { NavLink, useNavigate } from "react-router";
 import styles from "./HomeHeader.module.css";
 import Icons from "~/shared/icons/Icons";
 import Button from "../../../../shared/components/button/Button";
-import { JWTDecode, type CustomPayload } from "~/shared/utils/jwtDecode";
+import { getTokenPayload, type TokenPayload } from "~/shared/utils/jwtDecode";
 import { useEffect, useState } from "react";
 
 export default function HomeHeader() {
-  const [tokenPayload, setTokenPayload] = useState<CustomPayload | null>(null);
+  const [tokenPayload, setTokenPayload] = useState<TokenPayload | null>(null);
   const navigate = useNavigate();
   const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 
@@ -17,7 +17,7 @@ export default function HomeHeader() {
 
 
   useEffect(() => {
-    const tokenData = JWTDecode();
+    const tokenData = getTokenPayload();
 
     if (!tokenData) {
       navigate("/");

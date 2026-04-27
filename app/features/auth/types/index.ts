@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import type { loginResponseSchema, userResponseSchema } from '../schemas';
+import type { userLoginResponseSchema, userRegisterResponseSchema } from '../schemas';
 
-export type registerResponse = z.infer<typeof userResponseSchema>;
-export type loginResponse = z.infer<typeof loginResponseSchema>;
+export type registerResponse = z.infer<typeof userRegisterResponseSchema>;
+export type loginResponse = z.infer<typeof userLoginResponseSchema>;
 
 export interface registerRequest {
     email: string;

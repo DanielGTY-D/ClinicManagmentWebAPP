@@ -6,7 +6,7 @@ interface ButtonProps {
   styleType: "simple" | "simple-blue" | "gradient";
   textContent: string;
   hasScrollAnimation?: boolean;
-  type: "link" | "submit";
+  type?: "link" | "submit";
   customFn?: () => void;
 }
 

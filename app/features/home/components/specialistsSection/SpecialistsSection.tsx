@@ -2,6 +2,8 @@ import Icons from "~/shared/icons/Icons";
 import styles from "./SpecialistsSection.module.css";
 import HeaderSection from "../headerSection/HeaderSection";
 import CardSpecialists, { type CardSpecialistsProps } from "../cardSpecialists/CardSpecialists";
+import { uuidv7 } from "zod";
+import generateUUID from "~/shared/utils/generateUUID";
 
 export default function SpecialitiesSection() {
   const Images = [
@@ -61,6 +63,7 @@ export default function SpecialitiesSection() {
             Doctors.map( dr => (
               <CardSpecialists 
                 {...dr}
+                key={generateUUID()}
               />
             ))
           }

@@ -1,26 +1,65 @@
-import { useQuery } from "@tanstack/react-query";
-import styles from "./Users.module.css";
-import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
-import Icons from "~/shared/icons/Icons";
-import useUsers from "~/features/users/hooks/useUsers";
 import type { userResponse } from "~/features/users/types";
-import { parseToDate } from "~/shared/utils/parseDate";
+import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
+import useUsers from "~/features/users/hooks/useUsers";
+import DumbModal from "~/shared/components/dumbModal/DumbModal";
+import CustomButton from "~/shared/components/customButton/CustomButton";
+import TableUsers from "~/features/users/components/tableUsers/TableUsers";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useRoles } from "~/features/roles/hooks/useRoles";
+
+interface Inputs {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  roleId: number;
+}
 
 export default function Users() {
-  const { getAllUsers } = useUsers()
-  const { data, isError, isLoading, isSuccess, error } = useQuery<userResponse[]>({
-    queryKey: ["users"],
-    queryFn: getAllUsers,
-    retry: 2
-  })
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [showModalForm, setShowModalForm] = useState(false);
+  const {
+    users,
+    isUsersLoding,
+    isUsersError,
+    isUsersSuccess,
+    user,
+    isUserLoading,
+    isUserSuccess,
+    updateUser,
+    isUpdated,
+    isUpdating
+  } = useUsers(selectedUserId);
+  const { roles } = useRoles();
 
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm<Inputs>();
 
+  const onEdit = (user: userResponse) => {
+    setShowModalForm(true);
+    setSelectedUserId(user.id.toString());
+    reset();
+  };
 
-  const onEdit = (user: userResponse) => { }
-  const onDelete = (userId: number) => { }
+  const onDelete = (userId: number) => {};
+  const onSubmit = (data: Inputs) => {
+    const obj = {
+      ...data,
+    };
+    updateUser({ id: selectedUserId!, data: obj });
+  };
 
-  if (isError) return <p>Error al cargar usuarios</p>
-  if (isLoading) return <p>Cargando usuarios</p>
+  useEffect(() => {
+    setShowModalForm(false);
+  }, [isUpdating]);
+
+  if (isUsersError) return <p>Error al cargar usuarios</p>;
+  if (isUsersLoding) return <p>Cargando usuarios</p>;
 
   return (
     <>
@@ -31,84 +70,124 @@ export default function Users() {
           bg: "blue",
           icon: "AddIcon",
           textContent: "New User",
-          isLink: false,
+          isLink: true,
+          route: "/auth/register",
         }}
       />
 
-      <div className={styles.usersTable}>
-        <div className={styles.header}>
-          <div className={styles.search}>
-            <input
-              className={styles.inputSearch}
-              type="search"
-              placeholder="Buscar Usuarios"
-              name="search"
-              id="search"
-            />
-            <i className={styles.iconSearch}>
-              <Icons.searchIcon />
-            </i>
-          </div>
-          <select className={styles.filters} name="filters">
-            <option value={"all"}>todos los roles</option>
-            <option value={"admin"}>todos los administradores</option>
-            <option value={"patient"}>todos los pacientes</option>
-            <option value={"doctor"}>todos los doctores</option>
-          </select>
-        </div>
+      {isUsersSuccess && (
+        <TableUsers
+          data={users}
+          isFetchOk={isUsersSuccess}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
+      )}
 
-        <div className={styles.tableContent}>
-          <table className={styles.table}>
-            <thead className={styles.tableHead}>
-              <tr className={styles.tableRow}>
-                <th className={styles.tableHeadItem}>Usuario</th>
-                <th className={styles.tableHeadItem}>ROl</th>
-                <th className={styles.tableHeadItem}>ESTADO</th>
-                <th className={styles.tableHeadItem}>CREADO</th>
-                <th className={styles.tableHeadItem}>ACTUALIZADO</th>
-                <th className={styles.tableHeadItem}>ULTIMO ACCESO</th>
-                <th className={styles.tableHeadItem}>ACCIONES</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tableBody}>
-              {
-                isSuccess && (
-                  data.map(user => (
-                    <tr className={styles.tableRow} key={user.createdAt}>
-                      <td className={styles.tableData}>{user.firstName} {user.lastName}</td>
-                      <td className={`${styles.tableData}`}>
-                        <p className={`${styles[user.role.name]} ${styles.role}`}>{user.role.name}</p>
-                      </td>
-                      <td className={styles.tableData}>
-                        <p className={`${styles.status} ${user.isActive ? styles.active : styles.inactive}`}>{user.isActive ? "Activo" : "Inactivo"}</p>
-                      </td>
-                      <td className={styles.tableData}>{user.createdAt ? parseToDate(user.createdAt) : "No hay informacion para mostrar"}</td>
-                      <td className={styles.tableData}>{user.updatedAt ? parseToDate(user.updatedAt) : "Sin actualizaciones"}</td>
-                      <td>Pendiente</td>
-                      <td>
-                        <button
-                          className={styles.tableEditAction}
-                          onClick={() => {
-                            onEdit?.(user);
-                          }}
-                        >
-                          <Icons.EditIcon />
-                        </button>
-                        <button
-                          className={styles.tableDeleteAction}
-                          onClick={() => onDelete?.(user.id)}
-                        >
-                          <Icons.DeleteIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {user && (
+        <DumbModal show={showModalForm}>
+          <form data-form onSubmit={handleSubmit(onSubmit)}>
+            <legend data-form-legend>
+              <h4>
+                Usuarios
+                <p>Crear un nuevo usuario</p>
+              </h4>
+              <span onClick={() => setShowModalForm(false)}>Cerrar</span>
+            </legend>
+
+            <div data-form-body>
+              <div data-form-field>
+                <label htmlFor="username">
+                  Nombre de usuario <span>{errors.username?.message}</span>
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Oscar palacions"
+                  {...register("username", {
+                    required: "Este campo no puede estar vacio",
+                    value: user.username,
+                  })}
+                />
+              </div>
+
+              <div data-form-field>
+                <label htmlFor="email">
+                  Correo electronico <span>{errors.email?.message}</span>
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Oscar palacions"
+                  {...register("email", {
+                    required: "Este campo no puede estar vacio",
+                    value: user.email,
+                  })}
+                />
+              </div>
+
+              <div data-form-field>
+                <label htmlFor="firstName">
+                  Nombres <span>{errors.firstName?.message}</span>
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="Oscar palacions"
+                  {...register("firstName", {
+                    required: "Este campo no puede estar vacio",
+                    value: user.firstName,
+                  })}
+                />
+              </div>
+
+              <div data-form-field>
+                <label htmlFor="lastName">
+                  Apellidos <span>{errors.lastName?.message}</span>
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Oscar palacions"
+                  {...register("lastName", {
+                    required: "Este campo no puede estar vacio",
+                    value: user.lastName,
+                  })}
+                />
+              </div>
+
+              <div data-form-field>
+                <label htmlFor="lastName">
+                  Apellidos <span>{errors.lastName?.message}</span>
+                </label>
+                <select
+                  id="role"
+                  {...register("roleId", {
+                    required: "Este camp es requerido",
+                  })}
+                >
+                  {roles.map((role) => (
+                    <option
+                      key={role.id}
+                      value={role.id}
+                      selected={role.name === user.role.name}
+                    >
+                      {role.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <CustomButton
+              bg="blue"
+              textContent="Actualizar usuario"
+              icon=""
+              type="submit"
+            />
+          </form>
+        </DumbModal>
+      )}
     </>
-  )
+  );
 }

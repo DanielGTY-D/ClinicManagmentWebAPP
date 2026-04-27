@@ -22,3 +22,10 @@ api.interceptors.request.use( (config) => {
 export {
     api
 }
+
+
+/*
+  tipos de errores: 
+  message => 
+  Errors => { NombredelError: [Array de errores]}
+*/

@@ -4,6 +4,7 @@ import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
 import type { CustomButtonProps } from "~/shared/components/customButton/CustomButton";
 import Icons from "~/shared/icons/Icons";
 import CustomButton from "~/shared/components/customButton/CustomButton";
+import generateUUID from "~/shared/utils/generateUUID";
 
 interface CardInfo {
   title: string;
@@ -54,7 +55,7 @@ export default function AdminDashboardPanel() {
 
       <div className={styles.cardList}>
         {cards.map((card) => (
-          <Container key={card.title}>
+          <Container key={generateUUID()}>
             <div className={styles.cardContainer}>
               <div className={styles.cardHeader}>
                 <p className={styles.cardTitle}>{card.title}</p>
@@ -76,7 +77,7 @@ export default function AdminDashboardPanel() {
 
       <div className={styles.actions}>
         {buttons.map((btn) => (
-          <CustomButton {...btn} />
+          <CustomButton {...btn} key={generateUUID()}/>
         ))}
       </div>
 

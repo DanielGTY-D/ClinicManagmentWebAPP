@@ -8,6 +8,7 @@ import type { registerRequest } from "~/features/auth/types";
 import FormMessage from "~/shared/components/formMessage/FormMessage";
 import axios from "axios";
 import { useAppStore } from "~/shared/stores/useAppStore";
+import CustomButton from "~/shared/components/customButton/CustomButton";
 
 type Inputs = {
   firstName: string;
@@ -48,8 +49,9 @@ export default function RegisterForm() {
         console.log(error.response?.data.errors);
         const axiosErrors = error.response?.data.errors;
         const status = error.response?.status;
+
         setNotificationProps({
-          message: status === 500 ? "Error del servidor" : axiosErrors,
+          message: status === 500 ? "Error del servidor" : axiosErrors["PasswordHash"],
           state: true,
           type: "error",
         });
@@ -94,7 +96,7 @@ export default function RegisterForm() {
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.field}>
               <label htmlFor="firstName" className={styles.label}>
-                Nombres
+                Nombres <span>{errors.firstName?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors.firstName && styles.error}`}
@@ -108,7 +110,7 @@ export default function RegisterForm() {
             </div>
             <div className={styles.field}>
               <label htmlFor="lastName" className={styles.label}>
-                Apellidos
+                Apellidos <span>{errors.lastName?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors.lastName && styles.error}`}
@@ -122,7 +124,7 @@ export default function RegisterForm() {
             </div>
             <div className={styles.field}>
               <label htmlFor="email" className={styles.label}>
-                Correo electronico
+                Correo electronico <span>{errors.email?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors.email && styles.error}`}
@@ -140,7 +142,7 @@ export default function RegisterForm() {
             </div>
             <div className={styles.field}>
               <label htmlFor="tel" className={styles.label}>
-                Telefono
+                Telefono <span>{errors.tel?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors.tel && styles.error}`}
@@ -154,7 +156,7 @@ export default function RegisterForm() {
             </div>
             <div className={styles.field}>
               <label htmlFor="password" className={styles.label}>
-                Password
+                Password <span>{errors.password?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors.password && styles.error}`}
@@ -163,13 +165,16 @@ export default function RegisterForm() {
                 placeholder={errors.password?.message ?? "********"}
                 {...register("password", {
                   required: "El password es requerido",
-                  minLength: 8,
+                  minLength: {
+                    value: 8,
+                    message: "Minimo 8 caracteres"
+                  }
                 })}
               />
             </div>
             <div className={styles.field}>
               <label htmlFor="confirm-password" className={styles.label}>
-                Confirma tu Password
+                Confirma tu Password <span>{errors["confirm-password"]?.message}</span>
               </label>
               <input
                 className={`${styles.input} ${errors["confirm-password"] && styles.error}`}
@@ -178,7 +183,10 @@ export default function RegisterForm() {
                 placeholder={errors["confirm-password"]?.message ?? "********"}
                 {...register("confirm-password", {
                   required: "Es necesario que confirmes tu password",
-                  minLength: 8,
+                  minLength: {
+                    value: 8,
+                    message: "Minimo 8 caracteres"
+                  },
                   validate: (value, formValues) =>
                     value === formValues.password ||
                     "Las contraseñas no coinciden",
@@ -208,6 +216,8 @@ export default function RegisterForm() {
               textContent={`Crear cuenta gratis`}
               hasScrollAnimation={false}
             />
+
+            <NavLink className={styles.goToLogin} to={"/auth/login"}>Ya tienes cuenta? <span>Inicia sesion</span></NavLink>
           </form>
         </div>
       </div>

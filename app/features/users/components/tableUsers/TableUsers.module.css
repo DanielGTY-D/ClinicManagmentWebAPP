@@ -22,6 +22,7 @@
 
 .inputSearch {
   display: block;
+  outline: none;
 }
 
 .iconSearch {
@@ -34,6 +35,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   outline: none;
+  padding: 0.5rem;
 
   option {
     background-color: var(--accent);
@@ -41,7 +43,6 @@
     color: var(--muted-foreground);
   }
 }
-
 .tableContent {}
 
 .table {

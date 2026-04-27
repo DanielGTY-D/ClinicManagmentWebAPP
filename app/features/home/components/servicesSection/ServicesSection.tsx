@@ -3,6 +3,7 @@ import styles from "./ServicesSection.module.css";
 import type { CardServicesProps } from "../cardServices/CardServices";
 import CardServices from "../cardServices/CardServices";
 import HeaderSection from "../headerSection/HeaderSection";
+import generateUUID from "~/shared/utils/generateUUID";
 
 export default function Services() {
   const services: CardServicesProps[] = [
@@ -63,7 +64,7 @@ export default function Services() {
 
         <div className={styles.servicesContent}>
           {services.map((service) => (
-            <CardServices {...service} />
+            <CardServices {...service} key={generateUUID()}/>
           ))}
         </div>
       </div>

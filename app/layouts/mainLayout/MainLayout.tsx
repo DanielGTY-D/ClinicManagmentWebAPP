@@ -1,9 +1,46 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import styles from "./MainLayout.module.css";
 import Sidebar from "~/shared/components/sideBar/SideBar";
 import Notification from "~/shared/components/notification/Notification";
+import Button from "~/shared/components/button/Button";
+import useUsers from "~/features/users/hooks/useUsers";
+import { getTokenPayload, type TokenPayload } from "~/shared/utils/jwtDecode";
+import { useAppStore } from "~/shared/stores/useAppStore";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function MainLayout() {
+  const navigate = useNavigate();
+  const { getUserById } = useUsers();
+
+  const [tokenPayload, setTokenPayload] = useState<TokenPayload | null>(null);
+  const setUserData = useAppStore((state) => state.setUserData);
+
+  const query = useQuery({
+    queryKey: ["user", tokenPayload?.sub],
+    queryFn: () => getUserById(tokenPayload?.sub!),
+    enabled: tokenPayload !== null,
+  });
+
+  const onCloseSession = () => {
+    localStorage.removeItem("TOKEN");
+  };
+
+  useEffect(() => {
+    const tokenData = getTokenPayload();
+
+    if (!tokenData) {
+      navigate("/");
+    }
+
+    setTokenPayload(tokenData);
+
+    if (query.isFetched && query.data) {
+      setUserData(query.data);
+    }
+  }, [query.isFetched]);
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -31,14 +68,23 @@ export default function MainLayout() {
               <path d="M9 3v18"></path>
             </svg>
           </button>
-          <NavLink to={"/"}>Ir al incio</NavLink>
+          <NavLink className={styles.backToHome} to={"/"}>
+            Ir al incio
+          </NavLink>
+          <Button
+            route=""
+            styleType="gradient"
+            textContent="Cerrar sesion"
+            customFn={onCloseSession}
+          />
         </header>
 
         <div className={styles["outlet-container"]}>
           <Outlet />
         </div>
 
-        <Notification />
+        {/* <Notification /> */}
+        <ToastContainer />
       </div>
     </div>
   );

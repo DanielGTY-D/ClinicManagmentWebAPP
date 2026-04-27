@@ -1,27 +1,48 @@
 import { api } from "~/API"
 import { userResponseSchema, usersResponseSchema } from "../schemas";
 import type { userResponse, userUpdate } from "../types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserById, getUsers, updateUser } from "../api/usersApi";
 
+export const USERS_KEY = ["users"] as const;
 
-export default function useUsers() {
+export default function useUsers(id : string | null = null) {
 
-  const getAllUsers = async (): Promise<userResponse[]> => {
-    const { data } = await api.get("/users");
-    const result = usersResponseSchema.safeParse(data);
+  const queryClient = useQueryClient();
 
-    if (!result.success) {
-      throw new Error(result.error.message);
-    }
+  const usersQuery = useQuery({
+    queryKey: USERS_KEY,
+    queryFn: getUsers
+  })
 
-    return result.data;
-  }
+  const userQueryById = useQuery({
+    queryKey: ["user", id], 
+    queryFn: () => getUserById(id!),
+    enabled: id !== null,
+  })
 
-  const updateUser = async (userData: userUpdate) => {
-    const { data } = await api.put("/users", userData);
-
-  }
+  const updateMutation = useMutation({
+    mutationFn: ({id, data} : {id: string, data: userUpdate}) => updateUser(id, data),
+    onSuccess: () => queryClient.invalidateQueries({queryKey: USERS_KEY})
+  })
 
   return {
-    getAllUsers,
+    // query
+    users: usersQuery.data ?? [],
+    isUsersLoding : usersQuery.isLoading,
+    isUsersError : usersQuery.isError,
+    isUsersSuccess: usersQuery.isSuccess,
+
+    user: userQueryById.data,
+    isUserLoading: userQueryById.isLoading,
+    isUserError: userQueryById.isError,
+    isUserSuccess : userQueryById.isSuccess,
+
+    // Mutations
+    updateUser: updateMutation.mutate,
+    isUpdated: updateMutation.isSuccess,
+
+    // estados
+    isUpdating: updateMutation.isPending,
   }
 }

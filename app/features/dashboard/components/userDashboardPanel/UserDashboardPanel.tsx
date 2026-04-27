@@ -4,15 +4,18 @@ import Icons from "~/shared/icons/Icons";
 import CustomButton from "~/shared/components/customButton/CustomButton";
 
 export default function UserDashboardPanel() {
+  const onCloseSession = () => {
 
-    new Date().getDate()
+  }
+
+  new Date().getDate();
 
   const AppointmentsMock = [
     {
       date: new Date().toLocaleDateString("es", {
         day: "2-digit",
         month: "long",
-        year: "numeric"
+        year: "numeric",
       }),
       status: "pendiente",
       patient: "Dra. Claudia ramirez",
@@ -148,26 +151,26 @@ export default function UserDashboardPanel() {
               </div>
 
               <div className={styles.actions}>
-                <CustomButton 
-                    bg="white"
-                    icon=""
-                    textContent="Reprogramar"
-                    isLink={true}
-                    route="dashboard/appointmet/edit"
+                <CustomButton
+                  bg="white"
+                  icon=""
+                  textContent="Reprogramar"
+                  isLink={true}
+                  route="dashboard/appointmet/edit"
                 />
-                <CustomButton 
-                    bg="white"
-                    icon=""
-                    textContent="Reprogramar"
-                    isLink={true}
-                    route="dashboard/appointmet/edit"
+                <CustomButton
+                  bg="white"
+                  icon=""
+                  textContent="Reprogramar"
+                  isLink={true}
+                  route="dashboard/appointmet/edit"
                 />
-                <CustomButton 
-                    bg="white"
-                    icon=""
-                    textContent="Reprogramar"
-                    isLink={true}
-                    route="dashboard/appointmet/edit"
+                <CustomButton
+                  bg="white"
+                  icon=""
+                  textContent="Reprogramar"
+                  isLink={true}
+                  route="dashboard/appointmet/edit"
                 />
               </div>
             </li>

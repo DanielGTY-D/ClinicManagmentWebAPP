@@ -3,13 +3,15 @@ import styles from "./LoginForm.module.css";
 import Button from "~/shared/components/button/Button";
 import {
   useForm,
-  type SubmitErrorHandler,
   type SubmitHandler,
 } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "~/features/auth/hooks/useAuth";
 import axios from "axios";
 import { useAppStore } from "~/shared/stores/useAppStore";
+import { type TokenPayload } from "~/shared/utils/jwtDecode";
+import { jwtDecode } from "jwt-decode";
+
 
 interface Inputs {
   email: string;
@@ -32,7 +34,14 @@ export default function LoginForm() {
     mutationFn: (user: Inputs) => logingUser(user),
     onSuccess: (data) => {
       localStorage.setItem("TOKEN", data.token);
+      
+      const tokenDecoded = jwtDecode<TokenPayload>(data.token);
 
+      if(!JSON.parse(tokenDecoded.IsAssigned.toLowerCase())) {
+        navigate(`/assign/${tokenDecoded.sub}`)
+        return; 
+      }
+      
       setNotificationProps({
         message: "Iniciando sesion",
         state: true,

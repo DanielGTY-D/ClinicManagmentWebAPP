@@ -10,10 +10,10 @@ export const userResponseSchema = z.object({
   desactivationReason: z.string().nullable(),
   isActive: z.boolean(),
   isAssigned: z.boolean(),
-  isDeleted: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string().nullable(),
-  role: roleResponseSchema
+  role: roleResponseSchema,
+  imageProfile: z.string().nullable()
 });
 
 export const usersResponseSchema = z.array(userResponseSchema);
