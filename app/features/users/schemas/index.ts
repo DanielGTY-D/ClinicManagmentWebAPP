@@ -12,7 +12,7 @@ export const userResponseSchema = z.object({
   isAssigned: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string().nullable(),
-  role: roleResponseSchema,
+  role: roleResponseSchema.nullable(),
   imageProfile: z.string().nullable()
 });
 

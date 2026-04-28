@@ -1,27 +1,18 @@
 import { NavLink, Outlet, useNavigate } from "react-router";
 import styles from "./MainLayout.module.css";
 import Sidebar from "~/shared/components/sideBar/SideBar";
-import Notification from "~/shared/components/notification/Notification";
 import Button from "~/shared/components/button/Button";
 import useUsers from "~/features/users/hooks/useUsers";
 import { getTokenPayload, type TokenPayload } from "~/shared/utils/jwtDecode";
 import { useAppStore } from "~/shared/stores/useAppStore";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 export default function MainLayout() {
   const navigate = useNavigate();
-  const { getUserById } = useUsers();
-
   const [tokenPayload, setTokenPayload] = useState<TokenPayload | null>(null);
   const setUserData = useAppStore((state) => state.setUserData);
-
-  const query = useQuery({
-    queryKey: ["user", tokenPayload?.sub],
-    queryFn: () => getUserById(tokenPayload?.sub!),
-    enabled: tokenPayload !== null,
-  });
+  const { user, isUserLoading } = useUsers(tokenPayload?.sub);
 
   const onCloseSession = () => {
     localStorage.removeItem("TOKEN");
@@ -36,10 +27,10 @@ export default function MainLayout() {
 
     setTokenPayload(tokenData);
 
-    if (query.isFetched && query.data) {
-      setUserData(query.data);
+    if (!isUserLoading && user) {
+      setUserData(user);
     }
-  }, [query.isFetched]);
+  }, [isUserLoading]);
 
   return (
     <div className={styles.container}>

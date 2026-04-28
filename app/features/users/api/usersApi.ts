@@ -4,6 +4,7 @@ import { userResponseSchema, usersResponseSchema } from "../schemas";
 
 export const getUsers = async (): Promise<userResponse[]> => {
   const { data } = await api.get("/users");
+
   const result = usersResponseSchema.safeParse(data);
 
   if (!result.success) {
@@ -29,6 +30,9 @@ export const updateUser = async (
   userData: userUpdate,
 ): Promise<userResponse> => {
   const { data } = await api.put(`/users/${id}`, userData);
+  console.log(data);
+  
+
   const result = await userResponseSchema.safeParse(data);
 
   if (!result.success) {

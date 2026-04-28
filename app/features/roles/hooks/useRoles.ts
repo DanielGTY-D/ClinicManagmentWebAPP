@@ -33,6 +33,7 @@ export const useRoles = () => {
     roles: rolesQuery.data ?? [],
     isLoading: rolesQuery.isLoading,
     isError: rolesQuery.isError,
+    error: rolesQuery.error,
 
     // Mutations
     createRole: createMutation.mutate,
@@ -41,7 +42,10 @@ export const useRoles = () => {
 
     // Estados
     isCreating: createMutation.isPending,
+    isCreated: createMutation.isSuccess,
     isUpdating: updateMutation.isPending,
+    isUpdated: updateMutation.isSuccess,
     isDeleting: deleteMutation.isPending,
+    isDeleted: deleteMutation.isSuccess,
   }
 }

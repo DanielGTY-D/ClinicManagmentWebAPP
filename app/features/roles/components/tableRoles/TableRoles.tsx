@@ -54,9 +54,6 @@ export default function TableRoles({
                 <td className={styles["table-data"]}>
                   {role.desactivationReason ?? "Empty"}
                 </td>
-                <td className={styles["table-data"]}>
-                  {role.isDeleted === false ? "No Eliminado" : "Eliminado"}
-                </td>
                 {/* este lo voy a sacar */}
                 <td
                   className={styles["table-data"]}

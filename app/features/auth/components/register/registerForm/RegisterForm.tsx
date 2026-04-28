@@ -5,7 +5,6 @@ import { NavLink } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "~/features/auth/hooks/useAuth";
 import type { registerRequest } from "~/features/auth/types";
-import FormMessage from "~/shared/components/formMessage/FormMessage";
 import axios from "axios";
 import { useAppStore } from "~/shared/stores/useAppStore";
 import CustomButton from "~/shared/components/customButton/CustomButton";
@@ -207,7 +206,6 @@ export default function RegisterForm() {
                 de MedAgenda
               </label>
             </div>
-            {errors.terms && <FormMessage>{errors.terms.message}</FormMessage>}
 
             <Button
               type="submit"
