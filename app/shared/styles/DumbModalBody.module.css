@@ -1,0 +1,53 @@
+.form {
+  display: block;
+}
+.legend {
+  color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  
+  span {
+    color: var(--error);
+    cursor: pointer;
+  }
+
+  h3 {
+    font-weight: 500;
+    font-size: 2rem;
+
+    p {
+      font-weight: normal;
+      color: var(--muted-foreground);
+      font-size: 1.6rem;
+    }
+  }
+}
+.formBody {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  label {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+
+  input, select {
+    background-color: var(--muted);
+    padding: 0.5rem 1rem;
+    border-radius: var(radius);
+    outline: none;
+  }
+}
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

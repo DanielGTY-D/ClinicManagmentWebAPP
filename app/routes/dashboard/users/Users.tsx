@@ -1,5 +1,7 @@
 import type { userResponse } from "~/features/users/types";
 import styles from "./Users.module.css";
+import formStyles from "~/shared/styles/DumbModalBody.module.css"
+import tableStyles from "~/shared/styles/TableBody.module.css";
 import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
 import useUsers from "~/features/users/hooks/useUsers";
 import DumbModal from "~/shared/components/dumbModal/DumbModal";
@@ -10,7 +12,6 @@ import { useRoles } from "~/features/roles/hooks/useRoles";
 import Table, { type Filters } from "~/shared/components/table/Table";
 import { parseToDate } from "~/shared/utils/parseDate";
 import Icons from "~/shared/icons/Icons";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface Inputs {
   username: string;
@@ -139,53 +140,53 @@ export default function Users() {
           inputFilter={inputFilters}
           inputSearch={inputSearch}
         >
-          <thead className={styles.tableHead}>
-            <tr className={styles.tableRow}>
-              <th className={styles.tableHeadItem}>PROFILE</th>
-              <th className={styles.tableHeadItem}>Usuario</th>
-              <th className={styles.tableHeadItem}>ROl</th>
-              <th className={styles.tableHeadItem}>ESTADO</th>
-              <th className={styles.tableHeadItem}>ASIGNADO</th>
-              <th className={styles.tableHeadItem}>CREADO</th>
-              <th className={styles.tableHeadItem}>ACTUALIZADO</th>
-              <th className={styles.tableHeadItem}>ULTIMO ACCESO</th>
-              <th className={styles.tableHeadItem}>ACCIONES</th>
+          <thead className={tableStyles.tableHead}>
+            <tr className={tableStyles.tableRow}>
+              <th className={tableStyles.tableHeadItem}>PROFILE</th>
+              <th className={tableStyles.tableHeadItem}>Usuario</th>
+              <th className={tableStyles.tableHeadItem}>ROl</th>
+              <th className={tableStyles.tableHeadItem}>ESTADO</th>
+              <th className={tableStyles.tableHeadItem}>ASIGNADO</th>
+              <th className={tableStyles.tableHeadItem}>CREADO</th>
+              <th className={tableStyles.tableHeadItem}>ACTUALIZADO</th>
+              <th className={tableStyles.tableHeadItem}>ULTIMO ACCESO</th>
+              <th className={tableStyles.tableHeadItem}>ACCIONES</th>
             </tr>
           </thead>
-          <tbody className={styles.tableBody}>
+          <tbody className={tableStyles.tableBody}>
             {filteredUsers &&
               filteredUsers.map((user) => (
-                <tr className={styles.tableRow} key={user.createdAt}>
-                  <td className={styles.tableData}>
+                <tr className={tableStyles.tableRow} key={user.createdAt}>
+                  <td className={tableStyles.tableData}>
                     <img
-                      className={styles.userProfileImage}
+                      className={tableStyles.userProfileImage}
                       src={`${cloudinary}/${user.imageProfile}`}
                     />
                   </td>
-                  <td className={styles.tableData}>{user.username}</td>
-                  <td className={`${styles.tableData}`}>
-                    <p className={`${styles[user.role!.name]} ${styles.role}`}>
+                  <td className={tableStyles.tableData}>{user.username}</td>
+                  <td className={`${tableStyles.tableData}`}>
+                    <p className={`${tableStyles[user.role!.name]} ${tableStyles.role}`}>
                       {user.role!.name}
                     </p>
                   </td>
-                  <td className={styles.tableData}>
+                  <td className={tableStyles.tableData}>
                     <p
-                      className={`${styles.status} ${user.isActive ? styles.active : styles.inactive}`}
+                      className={`${tableStyles.status} ${user.isActive ? tableStyles.active : tableStyles.inactive}`}
                     >
                       {user.isActive ? "Activo" : "Inactivo"}
                     </p>
                   </td>
-                  <td className={styles.tableData}>
+                  <td className={tableStyles.tableData}>
                     <p>{user.isAssigned ? "Asignado" : "No Asignado"}</p>
                   </td>
-                  <td className={styles.tableData}>
+                  <td className={tableStyles.tableData}>
                     <p>
                       {user.createdAt
                         ? parseToDate(user.createdAt)
                         : "No hay informacion para mostrar"}
                     </p>
                   </td>
-                  <td className={styles.tableData}>
+                  <td className={tableStyles.tableData}>
                     <p>
                       {user.updatedAt
                         ? parseToDate(user.updatedAt)
@@ -193,9 +194,9 @@ export default function Users() {
                     </p>
                   </td>
                   <td>Pendiente</td>
-                  <td className={styles.tableDataActions}>
+                  <td className={tableStyles.tableDataActions}>
                     <button
-                      className={styles.tableEditAction}
+                      className={tableStyles.tableEditAction}
                       onClick={() => {
                         onEdit?.(user);
                       }}
@@ -203,14 +204,14 @@ export default function Users() {
                       <Icons.EditIcon />
                     </button>
                     <button
-                      className={styles.tableDeleteAction}
+                      className={tableStyles.tableDeleteAction}
                       onClick={() => onDelete?.(user.id)}
                     >
                       <Icons.DeleteIcon />
                     </button>
                     {!user.isAssigned && (
-                      <button className={styles.tableAssingAction}>
-                        <i className={styles.assingIcon}>
+                      <button className={tableStyles.tableAssingAction}>
+                        <i className={tableStyles.assingIcon}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 64 64"
@@ -231,8 +232,8 @@ export default function Users() {
 
       {isEditing && selectedUser && (
         <DumbModal show={showModalForm}>
-          <form data-form onSubmit={handleSubmit(onSubmit)}>
-            <legend data-form-legend>
+          <form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
+            <legend className={formStyles.legend}>
               <h4>
                 Usuarios
                 <p>Crear un nuevo usuario</p>
@@ -246,8 +247,8 @@ export default function Users() {
               </span>
             </legend>
 
-            <div data-form-body>
-              <div data-form-field>
+            <div className={formStyles.formBody}>
+              <div className={formStyles.formField}>
                 <label htmlFor="username">
                   Nombre de usuario <span>{errors.username?.message}</span>
                 </label>
@@ -262,7 +263,7 @@ export default function Users() {
                 />
               </div>
 
-              <div data-form-field>
+              <div className={formStyles.formField}>
                 <label htmlFor="email">
                   Correo electronico <span>{errors.email?.message}</span>
                 </label>
@@ -277,7 +278,7 @@ export default function Users() {
                 />
               </div>
 
-              <div data-form-field>
+              <div className={formStyles.formField}>
                 <label htmlFor="firstName">
                   Nombres <span>{errors.firstName?.message}</span>
                 </label>
@@ -292,7 +293,7 @@ export default function Users() {
                 />
               </div>
 
-              <div data-form-field>
+              <div className={formStyles.formField}>
                 <label htmlFor="lastName">
                   Apellidos <span>{errors.lastName?.message}</span>
                 </label>
@@ -307,7 +308,7 @@ export default function Users() {
                 />
               </div>
 
-              <div data-form-field>
+              <div className={formStyles.formField}>
                 <label htmlFor="lastName">
                   Apellidos <span>{errors.lastName?.message}</span>
                 </label>

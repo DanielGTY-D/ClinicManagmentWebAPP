@@ -1,15 +1,17 @@
 import type { Route } from "./+types/Roles";
-import type { roleResponse, rolesResponse } from "~/features/roles/types/role";
+import type { roleResponse } from "~/features/roles/types/role";
 import styles from "./Role.module.css";
+import formStyles from "~/shared/styles/DumbModalBody.module.css";
+import tableStyles from "~/shared/styles/TableBody.module.css";
 import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
 import DumbModal from "~/shared/components/dumbModal/DumbModal";
 import CustomButton from "~/shared/components/customButton/CustomButton";
-import { useEffect, useState } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { useRoles } from "~/features/roles/hooks/useRoles";
 import Table from "~/shared/components/table/Table";
-import { parseToDate } from "~/shared/utils/parseDate";
 import Icons from "~/shared/icons/Icons";
+import { useRoles } from "~/features/roles/hooks/useRoles";
+import { parseToDate } from "~/shared/utils/parseDate";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -108,47 +110,47 @@ export default function Roles() {
       />
 
       <Table search={false}>
-        <thead className={styles.tableHead}>
-          <tr className={styles.tableRow}>
-            <th className={styles.tableHeadItem}>ID</th>
-            <th className={styles.tableHeadItem}>Nombre</th>
-            <th className={styles.tableHeadItem}>Fecha de Creacion</th>
-            <th className={styles.tableHeadItem}>Fecha de actualizacion</th>
-            <th className={styles.tableHeadItem}>Rason de Desactivacion</th>
-            <th className={styles.tableHeadItem}>Estado</th>
-            <th className={styles.tableHeadItem}>Actions</th>
+        <thead className={tableStyles.tableHead}>
+          <tr className={tableStyles.tableRow}>
+            <th className={tableStyles.tableHeadItem}>ID</th>
+            <th className={tableStyles.tableHeadItem}>Nombre</th>
+            <th className={tableStyles.tableHeadItem}>Fecha de Creacion</th>
+            <th className={tableStyles.tableHeadItem}>Fecha de actualizacion</th>
+            <th className={tableStyles.tableHeadItem}>Rason de Desactivacion</th>
+            <th className={tableStyles.tableHeadItem}>Estado</th>
+            <th className={tableStyles.tableHeadItem}>Actions</th>
           </tr>
         </thead>
 
-        <tbody className={styles.tableBody}>
+        <tbody className={tableStyles.tableBody}>
           {roles &&
             roles.map((role) => (
-              <tr className={styles.tableRow} key={role.id}>
-                <td className={styles.tableData}>{role.id}</td>
-                <td className={styles.tableData}>{role.name}</td>
-                <td className={styles.tableData}>
+              <tr className={tableStyles.tableRow} key={role.id}>
+                <td className={tableStyles.tableData}>{role.id}</td>
+                <td className={tableStyles.tableData}>{role.name}</td>
+                <td className={tableStyles.tableData}>
                   {role.createdAt
                     ? parseToDate(role.createdAt)
                     : "Sin Fecha de creacion"}
                 </td>
-                <td className={styles.tableData}>
+                <td className={tableStyles.tableData}>
                   {role.updatedAt
                     ? parseToDate(role.updatedAt)
                     : "Sin actualizacion"}
                 </td>
-                <td className={styles.tableData}>
+                <td className={tableStyles.tableData}>
                   {role.desactivationReason ?? "Empty"}
                 </td>
-                <td className={`${styles.tableData} `}>
+                <td className={`${tableStyles.tableData} `}>
                   <span
-                    className={`${styles.status} ${role.isActive && styles.active}`}
+                    className={`${tableStyles.status} ${role.isActive && tableStyles.active}`}
                   >
                     {role.isActive ? "Activo" : "No Activo"}
                   </span>
                 </td>
-                <td className={styles.tableActions}>
+                <td className={tableStyles.tableActions}>
                   <button
-                    className={styles.tableEditAction}
+                    className={tableStyles.tableEditAction}
                     onClick={(e) => {
                       onEdit?.(role);
                     }}
@@ -156,7 +158,7 @@ export default function Roles() {
                     <Icons.EditIcon />
                   </button>
                   <button
-                    className={styles.tableDeleteAction}
+                    className={tableStyles.tableDeleteAction}
                     onClick={() => onDelete?.(role.id)}
                   >
                     <Icons.DeleteIcon />
@@ -169,18 +171,17 @@ export default function Roles() {
 
       <DumbModal show={showModalForm}>
         <form
-          data-fomr
           className={styles.form}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <legend data-form-legend className={styles.legend}>
+          <legend className={styles.legend}>
             <h3>
               Roles <p>{isEditing ? "Actualizar rol" : "Crear nuevo rol"}</p>
             </h3>
           </legend>
 
-          <div data-form-body>
-            <div data-form-field className={styles.field}>
+          <div className={formStyles.formBody}>
+            <div className={styles.formField}>
               <label htmlFor="name" className={styles.label}>
                 Nombre del rol{" "}
                 <span className={styles.error}>{errors.name?.message}</span>
@@ -195,7 +196,7 @@ export default function Roles() {
             </div>
           </div>
 
-          <div data-form-actions>
+          <div className={formStyles.formActions}>
             <CustomButton
               bg="blue"
               textContent={isEditing ? "Actualizar rol" : "Crear nuevo rol"}

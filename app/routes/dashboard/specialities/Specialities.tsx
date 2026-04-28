@@ -1,16 +1,18 @@
-import useSpecialities from "~/features/specialities/hooks/useSpecialities";
 import type { Route } from "./+types/Specialities";
+import type { speciality } from "~/features/specialities/types";
 import styles from "./Specialities.module.css";
+import tableStyles from "~/shared/styles/TableBody.module.css";
+import formStyles from "~/shared/styles/DumbModalBody.module.css"
+import useSpecialities from "~/features/specialities/hooks/useSpecialities";
 import RouteHeader from "~/shared/components/routeHeader/RouteHeader";
 import Table from "~/shared/components/table/Table";
 import Icons from "~/shared/icons/Icons";
-import { parseToDate } from "~/shared/utils/parseDate";
-import type { speciality } from "~/features/specialities/types";
 import DumbModal from "~/shared/components/dumbModal/DumbModal";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import CustomButton from "~/shared/components/customButton/CustomButton";
 import generateUUID from "~/shared/utils/generateUUID";
+import { parseToDate } from "~/shared/utils/parseDate";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -113,39 +115,38 @@ export default function Specialities() {
       />
 
       <Table search={false}>
-        <thead className={styles.tableHead}>
-          <tr className={styles.tableRow}>
-            <th className={styles.tableHeadItem}>Nombre</th>
-            <th className={styles.tableHeadItem}>Descripcion</th>
-            <th className={styles.tableHeadItem}>Creado</th>
-            <th className={styles.tableHeadItem}>Actualizado</th>
-            {/* <th className={styles.tableHeadItem}>ESTATUS</th> */}
-            <th className={styles.tableHeadItem}>ACCIONES</th>
+        <thead className={tableStyles.tableHead}>
+          <tr className={tableStyles.tableRow}>
+            <th className={tableStyles.tableHeadItem}>Nombre</th>
+            <th className={tableStyles.tableHeadItem}>Descripcion</th>
+            <th className={tableStyles.tableHeadItem}>Creado</th>
+            <th className={tableStyles.tableHeadItem}>Actualizado</th>
+            <th className={tableStyles.tableHeadItem}>ACCIONES</th>
           </tr>
         </thead>
-        <tbody className={styles.tableBody}>
+        <tbody className={tableStyles.tableBody}>
           {specialities &&
             specialities.map((speciality) => (
-              <tr className={styles.tableRow} key={generateUUID()}>
-                <td className={styles.tableData}>{speciality.name}</td>
-                <td className={styles.tableData}>{speciality.description}</td>
-                <td className={styles.tableData}>
+              <tr className={tableStyles.tableRow} key={generateUUID()}>
+                <td className={tableStyles.tableData}>{speciality.name}</td>
+                <td className={tableStyles.tableData}>{speciality.description}</td>
+                <td className={tableStyles.tableData}>
                   <p>
                     {speciality.createdAt
                       ? parseToDate(speciality.createdAt)
                       : "No hay informacion para mostrar"}
                   </p>
                 </td>
-                <td className={styles.tableData}>
+                <td className={tableStyles.tableData}>
                   <p>
                     {speciality.updatedAt
                       ? parseToDate(speciality.updatedAt)
                       : "Sin actualizaciones"}
                   </p>
                 </td>
-                <td className={styles.tableDataActions}>
+                <td className={tableStyles.tableDataActions}>
                   <button
-                    className={styles.tableEditAction}
+                    className={tableStyles.tableEditAction}
                     onClick={() => {
                       onEdit?.(speciality);
                     }}
@@ -153,7 +154,7 @@ export default function Specialities() {
                     <Icons.EditIcon />
                   </button>
                   <button
-                    className={styles.tableDeleteAction}
+                    className={tableStyles.tableDeleteAction}
                     onClick={() => onDelete?.(speciality.id)}
                   >
                     <Icons.DeleteIcon />
@@ -166,11 +167,10 @@ export default function Specialities() {
 
       <DumbModal show={showModalForm}>
         <form
-          data-form
-          className={styles.form}
+          className={formStyles.form}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <legend data-form-legend className={styles.legend}>
+          <legend className={formStyles.legend}>
             <h3>
               Especialidades{" "}
               <p>
@@ -181,11 +181,11 @@ export default function Specialities() {
             </h3>
           </legend>
 
-          <div data-form-body>
-            <div data-form-field className={styles.field}>
-              <label htmlFor="name" className={styles.label}>
+          <div className={formStyles.formBody}>
+            <div className={formStyles.formField}>
+              <label htmlFor="name" className={formStyles.label}>
                 Nombre de la especialidad{" "}
-                <span className={styles.error}>{errors.name?.message}</span>
+                <span className={formStyles.error}>{errors.name?.message}</span>
               </label>
               <input
                 type="text"
@@ -196,10 +196,10 @@ export default function Specialities() {
               />
             </div>
 
-            <div data-form-field className={styles.field}>
-              <label htmlFor="name" className={styles.label}>
+            <div  className={formStyles.formField}>
+              <label htmlFor="name" className={formStyles.label}>
                 Description{" "}
-                <span className={styles.error}>{errors.description?.message}</span>
+                <span className={formStyles.error}>{errors.description?.message}</span>
               </label>
               <input
                 type="text"
@@ -211,7 +211,7 @@ export default function Specialities() {
             </div>
           </div>
 
-          <div data-form-actions>
+          <div className={formStyles.formActions}>
             <CustomButton
               bg="blue"
               textContent={
