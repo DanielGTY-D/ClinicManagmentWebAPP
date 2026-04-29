@@ -204,9 +204,7 @@ export default function Specialities() {
               <input
                 type="text"
                 placeholder="Agrega una descripcion si es necesaria"
-                {...register("description", {
-                  required: "Este campo es requerido",
-                })}
+                {...register("description")}
               />
             </div>
           </div>
